@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-
+import React from "react";
+import { Col } from "react-bootstrap";
 const Missed = () => {
-  return <div></div>;
+  return <Col>💦</Col>;
 };
 
 export default Missed;

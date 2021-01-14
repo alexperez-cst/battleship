@@ -1,20 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
+
 function Gameboard(props) {
   const createGameboard = () => {
-    const grid = [];
+    const protoGrid = [];
+    const board = {};
     for (let i = 0; i < 10; i++) {
-      grid.push(<Row x={i}></Row>);
+      protoGrid.push(<Row x={i}></Row>);
       for (let j = 0; j < 10; j++) {
-        setGameboard((s) => {
-          s[i + j] = null;
-          return s;
-        });
-        grid[i].appendChild(<Col y={j}></Col>);
+        board[i + j] = null;
+        protoGrid[i].appendChild(<Col y={j} onClick={props.click}></Col>);
       }
     }
+    setGrid(protoGrid);
     return grid;
   };
-  const [gameboard, setGameboard] = useState(createGameboard());
-  return <div>{createGameboard().map((a) => a)}</div>;
+  const [grid, setGrid] = useState([]);
+  return (
+    <div>
+      {grid.length ? null : createGameboard()}
+      {grid.map((a) => a)}
+    </div>
+  );
 }
+
+export default Gameboard;

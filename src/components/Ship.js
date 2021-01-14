@@ -8,6 +8,9 @@ function Ship(props) {
     for (let i = 0; i < len; i++) body.push(1);
     return body;
   };
+  const testIsSunk = () => {
+    return shipBody.includes(1) ? false : true;
+  };
   const [shipBody, setShipBody] = useState(createShipParts(props.index));
   const [isSunk, setIsSunk] = useState(false);
   const hit = (index) => {
@@ -16,6 +19,6 @@ function Ship(props) {
     }
     setShipBody((s) => [s.slice(0, index), 0, s.slice(index + 1)]);
   };
-  return { hit, createShipParts, shipBody, isSunk };
+  return <div></div>;
 }
 export default Ship;
