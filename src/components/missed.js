@@ -1,7 +1,7 @@
 import React from "react";
 import { Col } from "react-bootstrap";
 const Missed = () => {
-  return <Col>💦</Col>;
+  return <div>💦</div>;
 };
 
 export default Missed;

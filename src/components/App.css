@@ -1,0 +1,35 @@
+#gameboard {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  height: auto;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: "border-box";
+  grid-template-columns: repeat(10, minmax(3vw, 7vw));
+  grid-template-rows: repeat(10, minmax(3vw, 7vw));
+  row-gap: 0;
+  column-gap: 0;
+}
+#AiGameboard {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  height: auto;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: "border-box";
+  grid-template-columns: repeat(10, minmax(3vw, 7vw));
+  grid-template-rows: repeat(10, minmax(3vw, 7vw));
+  row-gap: 0;
+  column-gap: 0;
+}
+.ship {
+  background-color: grey;
+}
+#protoShip {
+  display: flex;
+  flex-direction: row;
+}
