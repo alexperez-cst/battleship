@@ -1,7 +1,6 @@
 import React from "react";
-import { Col } from "react-bootstrap";
-const Missed = () => {
-  return <div>💦</div>;
+const Missed = (props) => {
+  return <div className='hit' data-x={props.x} data-y={props.y}>💦</div>;
 };
 
 export default Missed;

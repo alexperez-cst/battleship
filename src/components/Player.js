@@ -1,8 +1,7 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Gameboard from "./Gameboard";
 import { Container } from "react-bootstrap";
 const Player = (props) => {
-  console.log(props.board);
   const onDrop = (el) => {
     el.preventDefault();
     el.stopPropagation();

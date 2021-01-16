@@ -16,9 +16,9 @@ function Ship(props) {
       ship.push(
         <Col
           style={{
-            width: "9vw",
-            height: "9vw",
-            border: "1px solid black",
+            width: "7vw",
+            height: "7vw",
+            border: "2px solid white",
             backgroundColor: "grey",
             margin: "0",
             padding: "0",
@@ -38,7 +38,7 @@ function Ship(props) {
       onDragOver={(x) => x.preventDefault()}
       onDragStart={(e) => dragStart(e, e.target.getAttribute("nodedata"))}
       nodedata={props.index}
-      style={{ width: `${props.index * 9}vw` }}
+      style={{ width: `${props.index * 7}vw` }}
     >
       {shipImg().map((a) => a)}
     </div>

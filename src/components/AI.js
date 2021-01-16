@@ -4,9 +4,11 @@ import Missed from "./missed";
 import Hitted from "./Hitted";
 import { Container } from "react-bootstrap";
 const AI = (props) => {
+  const [, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
   const random = (max) => ~~(Math.random() * max);
-  const attacked = (x, y, filtering) => {
-    const gameboard = document.getElementById("AiGameboard");
+  const attacked = (x, y, filtering,board) => {
+    const gameboard = document.getElementById(board);
     const xGrid = [...gameboard.querySelectorAll(`[data-x="${x}"]`)];
     const yGrid = xGrid.reduce((tot, x) => {
       console.log(x.getAttribute("data-y"), `${y}`);
@@ -17,6 +19,7 @@ const AI = (props) => {
     console.log(yGrid.classList);
     return yGrid.classList.contains(filtering) ? true : false;
   };
+  /*
   function* aggresiveAttack(xCord, yCord) {
     let xAxis = xCord;
     let yAxis = yCord;
@@ -42,24 +45,26 @@ const AI = (props) => {
       }
     }
   }
-  const nextRound = async () => {
+  */
+  const nextRound = () => {
     console.log("In Next Round");
     const xAxis = random(10);
     const yAxis = random(10);
-    if (attacked(xAxis, yAxis, "hit")) {
+    if (attacked(xAxis, yAxis, "hit",'gameboard')) {
       return nextRound();
     }
-    if (props.sendAttack(xAxis, yAxis)) {
-      await setAttackMode(async () => {
+    props.sendAttack(xAxis,yAxis)
+    /*if (props.sendAttack(xAxis, yAxis)) {
+      await setnextRound(async () => {
         for (const attack of aggresiveAttack(xAxis, yAxis)) {
           if (props.sendAttack(...attack)) {
             continue;
           }
-          await setAttackMode(() => nextRound);
+          await setnextRound(() => nextRound);
           break;
         }
       });
-    }
+    }*/
   };
   const randomShips = (maxSize, minSize) => {
     if (maxSize === minSize) {
@@ -84,34 +89,30 @@ const AI = (props) => {
     }
     return randomShips(maxSize, minSize);
   };
-  const [attackMode, setAttackMode] = useState(() => {
-    console.log("Calling Attack Mode");
-    return nextRound;
-  });
   const recieveAttack = async (e) => {
     const yAxis = e.target.getAttribute("data-y");
     const xAxis = e.target.getAttribute("data-x");
     const xyAxis = +yAxis + +xAxis * 10;
-    if (attacked(xAxis, yAxis, "hit")) {
+    if (attacked(xAxis, yAxis, "hit",'AiGameboard')) {
       console.log("bye");
       return;
     }
-    if (!attacked(xAxis, yAxis, ".")) {
+    if (!attacked(xAxis, yAxis, ".",'AiGameboard')) {
       console.log("here");
       await props.setBoard((s) => {
         console.log(s);
-        s[xyAxis] = <Missed />;
+        s[xyAxis] = <Missed x={xAxis} y={yAxis}/>;
         return s;
       });
-      attackMode();
-      return;
+    }else{
+      console.log("Hitted");
+      await props.setBoard((s) => {
+        s[xyAxis] = <Hitted x={xAxis} y={yAxis}/>;
+        return s;
+      });
     }
-    await props.setBoard((s) => {
-      props.board[xyAxis] = <Hitted />;
-      return s;
-    });
-    console.log("Hitted");
-    attackMode();
+    forceUpdate(); 
+    nextRound();
   };
   useEffect(() => {
     setTimeout(() => {
